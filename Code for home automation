@@ -1,0 +1,44 @@
+code works for home automation on tinker card 
+
+const int lightPin = 2;   // Red LED - Light
+const int fanPin = 3;     // Yellow LED - Fan
+const int acPin = 4;      // Green LED - TV or AC
+
+void setup() {
+  pinMode(lightPin, OUTPUT);
+  pinMode(fanPin, OUTPUT);
+  pinMode(acPin, OUTPUT);
+  Serial.begin(9600);
+
+  Serial.println("Home Automation System Ready!");
+  Serial.println("Commands: LIGHT ON/OFF, FAN ON/OFF, AC ON/OFF");
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    String command = Serial.readStringUntil('\n');
+    command.trim();  // Remove whitespace
+
+    if (command == "LIGHT ON") {
+      digitalWrite(lightPin, HIGH);
+      Serial.println("Light turned ON");
+    } else if (command == "LIGHT OFF") {
+      digitalWrite(lightPin, LOW);
+      Serial.println("Light turned OFF");
+    } else if (command == "FAN ON") {
+      digitalWrite(fanPin, HIGH);
+      Serial.println("Fan turned ON");
+    } else if (command == "FAN OFF") {
+      digitalWrite(fanPin, LOW);
+      Serial.println("Fan turned OFF");
+    } else if (command == "AC ON") {
+      digitalWrite(acPin, HIGH);
+      Serial.println("AC turned ON");
+    } else if (command == "AC OFF") {
+      digitalWrite(acPin, LOW);
+      Serial.println("AC turned OFF");
+    } else {
+      Serial.println("Invalid command!");
+    }
+  }
+}
